@@ -4,8 +4,8 @@
 [ext_resource path="res://addons/localization_editor/scenes/locales/LocalizationLocalesEditorView.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/localization_editor/scenes/translations/LocalizationTranslationsEditorView.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/localization_editor/scenes/remaps/LocalizationRemapsEditorView.tscn" type="PackedScene" id=4]
-[ext_resource path="res://addons/localization_editor/icons/File.png" type="Texture" id=5]
-[ext_resource path="res://addons/localization_editor/icons/Save.png" type="Texture" id=6]
+[ext_resource path="res://addons/localization_editor/icons/icon_save.svg" type="Texture" id=5]
+[ext_resource path="res://addons/localization_editor/icons/icon_load.svg" type="Texture" id=6]
 [ext_resource path="res://addons/localization_editor/scenes/auto_translate/LocalizationAutoTranslateEditorView.tscn" type="PackedScene" id=7]
 
 [node name="Control" type="Control"]
@@ -27,7 +27,7 @@ __meta__ = {
 
 [node name="Margin" type="MarginContainer" parent="VBox"]
 margin_right = 1024.0
-margin_bottom = 26.0
+margin_bottom = 28.0
 custom_constants/margin_right = 3
 custom_constants/margin_top = 3
 custom_constants/margin_left = 3
@@ -37,35 +37,49 @@ custom_constants/margin_bottom = 3
 margin_left = 3.0
 margin_top = 3.0
 margin_right = 1021.0
-margin_bottom = 23.0
+margin_bottom = 25.0
 size_flags_horizontal = 3
 
-[node name="Save" type="Button" parent="VBox/Margin/HBox"]
-margin_right = 22.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 20, 20 )
-icon = ExtResource( 6 )
+[node name="FileMenu" type="MenuButton" parent="VBox/Margin/HBox"]
+margin_right = 35.0
+margin_bottom = 22.0
+text = "File"
+items = [ "Open...", null, 0, false, false, 0, 0, null, "", false, "Save", null, 0, false, false, 1, 0, null, "", false, "", null, 0, false, false, -1, 0, null, "", true, "Extractor", null, 0, false, false, 6, 0, null, "", false ]
 
-[node name="Open" type="Button" parent="VBox/Margin/HBox"]
-margin_left = 26.0
-margin_right = 48.0
-margin_bottom = 20.0
+[node name="VSeparator" type="VSeparator" parent="VBox/Margin/HBox"]
+margin_left = 39.0
+margin_right = 43.0
+margin_bottom = 22.0
+
+[node name="Save" type="Button" parent="VBox/Margin/HBox"]
+margin_left = 47.0
+margin_right = 75.0
+margin_bottom = 22.0
 rect_min_size = Vector2( 20, 20 )
 icon = ExtResource( 5 )
+flat = true
+
+[node name="Open" type="Button" parent="VBox/Margin/HBox"]
+margin_left = 79.0
+margin_right = 107.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 20, 20 )
+icon = ExtResource( 6 )
+flat = true
 
 [node name="File" type="Label" parent="VBox/Margin/HBox"]
-margin_left = 52.0
-margin_top = 3.0
+margin_left = 111.0
+margin_top = 4.0
 margin_right = 1018.0
-margin_bottom = 17.0
+margin_bottom = 18.0
 size_flags_horizontal = 3
 text = "Path:"
 align = 1
 
 [node name="Tabs" type="TabContainer" parent="VBox"]
-margin_top = 30.0
+margin_top = 32.0
 margin_right = 1024.0
-margin_bottom = 600.0
+margin_bottom = 1820.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_align = 0
