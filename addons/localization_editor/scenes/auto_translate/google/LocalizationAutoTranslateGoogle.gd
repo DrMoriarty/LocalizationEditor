@@ -69,7 +69,7 @@ func _translate(from_code: String, to_code: String) -> void:
         var to_translation = _data.translation_by_locale(key, to_code)
         if from_translation != null and not from_translation.value.empty() and (to_translation.value == null or to_translation.value.empty()):
             _create_request(from_translation, to_translation)
-            yield(get_tree().create_timer(0.25), 'timeout')
+            yield(get_tree().create_timer(0.75), 'timeout')
         else:
             _add_progress()
         if _break_loop:
@@ -101,10 +101,14 @@ func http_request_completed(result, response_code, headers, body, http_request, 
             _break_loop = true
         else:
             push_error('HTTP response: %d, body: %s'%[response_code, body.get_string_from_utf8()])
+            _add_progress()
         return
     _add_progress()
     var result_body := JSON.parse(body.get_string_from_utf8())
-    to_translation.value = result_body.result[0][0][0]
+    var value = ''
+    for t in result_body.result[0]:
+        value += t[0]
+    to_translation.value = value
     remove_child(http_request)
 
 func _add_progress() -> void:
