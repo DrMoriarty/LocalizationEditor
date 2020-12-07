@@ -94,10 +94,14 @@ func _filter(path: String) -> bool:
 func _index_file(fpath: String):
     var ext := fpath.get_extension()
     #print("File ", fpath)
-    if ext != "tscn" and ext != "gd":
+    if ext == "tscn":
+        _paths.append(fpath)
+    elif ext == "gd":
+        _paths.append(fpath)
+    elif ext == "json":
+        _paths.append(fpath)
+    else:
         return
-    _paths.append(fpath)
-
 
 func _process_tscn(f: File, fpath: String):
     var patterns := [
@@ -202,6 +206,7 @@ func _process_gd(f: File, fpath: String):
             continue
         
         # Search for one or multiple tr("...") in the same line
+        var _final_quote := '"'
         var search_index := 0
         var counter := 0
         while search_index < len(line):
@@ -222,6 +227,7 @@ func _process_gd(f: File, fpath: String):
             if pattern[0] == "\"":
                 # Detected by prefix
                 begin_quote_index = pattern_start_index
+                _final_quote = '"'
                 
             else:
                 # Detect by call to TranslationServer
@@ -233,7 +239,20 @@ func _process_gd(f: File, fpath: String):
                 # TODO There may be more cases to handle
                 # They may need regexes or a simplified GDScript parser to extract properly
             
-                begin_quote_index = line.find('"', pattern_start_index)
+                var i1 = line.find('"', pattern_start_index)
+                var i2 = line.find("'", pattern_start_index)
+                if i1 >= 0 and i2 < 0: 
+                    begin_quote_index = i1
+                    _final_quote = '"'
+                elif i1 < 0 and i2 >= 0:
+                    begin_quote_index = i2
+                    _final_quote = "'"
+                elif i1 < i2 and i1 >= 0:
+                    begin_quote_index = i1
+                    _final_quote = '"'
+                elif i2 < i1 and i2 >= 0:
+                    begin_quote_index = i2
+                    _final_quote = "'"
                 if begin_quote_index == -1:
                     # Multiline or procedural strings not supported
                     push_error("Begin quote not found in {0}, line {1}" \
@@ -241,7 +260,7 @@ func _process_gd(f: File, fpath: String):
                     # No quote found in entire line, skip
                     break
             
-            var end_quote_index := find_unescaped_quote(line, begin_quote_index + 1)
+            var end_quote_index := find_unescaped_quote(line, begin_quote_index + 1, _final_quote)
             if end_quote_index == -1:
                 # Multiline or procedural strings not supported
                 push_error("End quote not found in {0}, line {1}".format([fpath, line_number]))
@@ -290,9 +309,9 @@ func _process_quoted_text_generic(f: File, fpath: String):
             search_index = end_quote_index + 1
 
 
-static func find_unescaped_quote(s, from) -> int:
+static func find_unescaped_quote(s, from, q := '"') -> int:
     while true:
-        var i = s.find('"', from)
+        var i = s.find(q, from)
         if i <= 0:
             return i
         if s[i - 1] != '\\':

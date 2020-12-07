@@ -19,7 +19,8 @@ var _extractor : Extractor = null
 var _results := {}
 var _selected_results := {}
 var _registered_string_filter : FuncRef = null
-
+var _new_ids := 0
+var _registered_ids := 0
 
 func _ready():
     _import_button.disabled = true
@@ -126,7 +127,10 @@ func _on_Extractor_finished(results: Dictionary):
     # Root
     _results_list.create_item()
     
-    for text in results:
+    var keys : Array = results.keys()
+    keys.sort()
+    
+    for text in keys:
         var item : TreeItem = _results_list.create_item()
         item.set_text(0, text)
         item.collapsed = true
@@ -148,7 +152,9 @@ func _on_Extractor_finished(results: Dictionary):
     _update_import_button()
     _extract_button.disabled = false
     
-    _summary_label.text = "{0} new, {1} registered".format([len(new_set), len(registered_set)])
+    _new_ids = len(new_set)
+    _registered_ids = len(registered_set)
+    _update_summary()
 
 
 func _on_Results_multi_selected(item: TreeItem, column: int, selected: bool) -> void:
@@ -164,4 +170,10 @@ func _on_Results_multi_selected(item: TreeItem, column: int, selected: bool) -> 
         _import_button.text = 'Import selected'
     else:
         _import_button.text = 'Import all'
+    _update_summary()
         
+func _update_summary() -> void:
+    if _selected_results.keys().size() > 0:
+        _summary_label.text = "{0} new, {1} registered, {2} selected".format([_new_ids, _registered_ids, _selected_results.keys().size()])
+    else:
+        _summary_label.text = "{0} new, {1} registered".format([_new_ids, _registered_ids])

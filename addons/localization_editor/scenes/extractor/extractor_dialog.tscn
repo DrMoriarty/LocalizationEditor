@@ -61,7 +61,7 @@ margin_right = 624.0
 margin_bottom = 24.0
 hint_tooltip = "Directories seperated by semicolons `;`"
 size_flags_horizontal = 3
-text = "addons"
+text = "addons;android"
 
 [node name="HB3" type="HBoxContainer" parent="VB"]
 margin_top = 56.0

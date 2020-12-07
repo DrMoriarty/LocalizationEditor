@@ -112,5 +112,4 @@ func _on_ExtractorDialog_import_selected(results: Dictionary):
     for text in results:
         if not _is_string_registered(text):
             _data.add_key(text)
-            print('Imported %s'%var2str(text))
     _data.emit_signal_data_changed()
