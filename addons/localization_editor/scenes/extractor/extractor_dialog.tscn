@@ -7,7 +7,7 @@ visible = true
 margin_left = 54.0
 margin_top = 68.0
 margin_right = 694.0
-margin_bottom = 548.0
+margin_bottom = 573.0
 rect_min_size = Vector2( 640, 480 )
 window_title = "String extractor"
 resizable = true
@@ -80,10 +80,34 @@ margin_right = 624.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 
-[node name="StatusBar" type="Control" parent="VB"]
+[node name="Types" type="HBoxContainer" parent="VB"]
 margin_top = 84.0
 margin_right = 624.0
 margin_bottom = 108.0
+
+[node name="GdCheckBox" type="CheckBox" parent="VB/Types"]
+margin_right = 55.0
+margin_bottom = 24.0
+pressed = true
+text = "*.gd"
+
+[node name="TscnCheckBox" type="CheckBox" parent="VB/Types"]
+margin_left = 59.0
+margin_right = 126.0
+margin_bottom = 24.0
+pressed = true
+text = "*.tscn"
+
+[node name="JsonCheckBox" type="CheckBox" parent="VB/Types"]
+margin_left = 130.0
+margin_right = 197.0
+margin_bottom = 24.0
+text = "*.json"
+
+[node name="StatusBar" type="Control" parent="VB"]
+margin_top = 112.0
+margin_right = 624.0
+margin_bottom = 136.0
 rect_min_size = Vector2( 0, 24 )
 
 [node name="SummaryLabel" type="Label" parent="VB/StatusBar"]
@@ -102,24 +126,24 @@ margin_bottom = 16.0
 step = 1.0
 
 [node name="Results" type="Tree" parent="VB"]
-margin_top = 112.0
+margin_top = 140.0
 margin_right = 624.0
-margin_bottom = 416.0
+margin_bottom = 441.0
 size_flags_vertical = 3
 allow_rmb_select = true
 hide_root = true
 select_mode = 2
 
 [node name="Spacer" type="Control" parent="VB"]
-margin_top = 420.0
+margin_top = 445.0
 margin_right = 624.0
-margin_bottom = 428.0
+margin_bottom = 453.0
 rect_min_size = Vector2( 0, 8 )
 
 [node name="Buttons" type="HBoxContainer" parent="VB"]
-margin_top = 432.0
+margin_top = 457.0
 margin_right = 624.0
-margin_bottom = 452.0
+margin_bottom = 477.0
 custom_constants/separation = 16
 alignment = 1
 
@@ -143,9 +167,9 @@ margin_bottom = 20.0
 text = "Cancel"
 
 [node name="Spacer2" type="Control" parent="VB"]
-margin_top = 456.0
+margin_top = 481.0
 margin_right = 624.0
-margin_bottom = 464.0
+margin_bottom = 489.0
 rect_min_size = Vector2( 0, 8 )
 [connection signal="multi_selected" from="VB/Results" to="." method="_on_Results_multi_selected"]
 [connection signal="pressed" from="VB/Buttons/ExtractButton" to="." method="_on_ExtractButton_pressed"]

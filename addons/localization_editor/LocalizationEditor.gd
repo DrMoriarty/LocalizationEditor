@@ -40,10 +40,6 @@ func set_editor(editor: EditorPlugin) -> void:
         _extractor_dialog.set_registered_string_filter(funcref(self, "_is_string_registered"))
         _extractor_dialog.connect("import_selected", self, "_on_ExtractorDialog_import_selected")
         add_child(_extractor_dialog)
-    #_file_menu.get_popup().add_item("Open...", MENU_FILE_OPEN)
-    #_file_menu.get_popup().add_item("Save", MENU_FILE_SAVE)
-    #_file_menu.get_popup().add_separator()
-    #_file_menu.get_popup().add_item("Extractor", MENU_FILE_EXTRACT)
 
 func _init_connections() -> void:
     if not _data.is_connected("settings_changed", self, "_update_view"):
@@ -52,7 +48,7 @@ func _init_connections() -> void:
         _save_ui.connect("pressed", self, "save_data")
     if not _open_ui.is_connected("pressed", self, "_open_file"):
         _open_ui.connect("pressed", self, "_open_file")
-    if not _file_menu.is_connected("id_pressed", self, "_on_FileMenu_id_pressed"):
+    if not _file_menu.get_popup().is_connected("id_pressed", self, "_on_FileMenu_id_pressed"):
         _file_menu.get_popup().connect("id_pressed", self, "_on_FileMenu_id_pressed")
 
 func _on_FileMenu_id_pressed(id: int):

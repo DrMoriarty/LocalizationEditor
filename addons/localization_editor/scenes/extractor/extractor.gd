@@ -15,6 +15,9 @@ var _ignored_paths := {}
 var _paths := []
 var _prefix := ""
 const _prefix_exclusive := true
+var process_gd := true
+var process_tscn := true
+var process_json := false
 
 
 func extract_async(root: String, ignored_paths := [], prefix := ""):
@@ -94,11 +97,11 @@ func _filter(path: String) -> bool:
 func _index_file(fpath: String):
     var ext := fpath.get_extension()
     #print("File ", fpath)
-    if ext == "tscn":
+    if ext == "tscn" and process_tscn:
         _paths.append(fpath)
-    elif ext == "gd":
+    elif ext == "gd" and process_gd:
         _paths.append(fpath)
-    elif ext == "json":
+    elif ext == "json" and process_json:
         _paths.append(fpath)
     else:
         return

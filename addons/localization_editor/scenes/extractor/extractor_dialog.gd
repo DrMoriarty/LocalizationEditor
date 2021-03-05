@@ -73,6 +73,9 @@ func _on_ExtractButton_pressed():
     _extractor = Extractor.new()
     _extractor.connect("progress_reported", self, "_on_Extractor_progress_reported")
     _extractor.connect("finished", self, "_on_Extractor_finished")
+    _extractor.process_gd = $VB/Types/GdCheckBox.pressed
+    _extractor.process_tscn = $VB/Types/TscnCheckBox.pressed
+    _extractor.process_json = $VB/Types/JsonCheckBox.pressed
     _extractor.extract_async(root, excluded_dirs, prefix)
     
     _progress_bar.value = 0

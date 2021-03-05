@@ -16,12 +16,12 @@ __meta__ = {
 
 [node name="Separator" type="VSeparator" parent="."]
 margin_right = 4.0
-margin_bottom = 600.0
+margin_bottom = 1820.0
 
 [node name="VBox" type="VBoxContainer" parent="."]
 margin_left = 8.0
 margin_right = 1024.0
-margin_bottom = 600.0
+margin_bottom = 1820.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -31,12 +31,13 @@ margin_right = 1016.0
 [node name="Scroll" type="ScrollContainer" parent="VBox"]
 margin_top = 61.0
 margin_right = 1016.0
-margin_bottom = 600.0
+margin_bottom = 1820.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+scroll_horizontal_enabled = false
 
 [node name="TranslationsList" type="VBoxContainer" parent="VBox/Scroll"]
 margin_right = 1016.0
-margin_bottom = 539.0
+margin_bottom = 1759.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
